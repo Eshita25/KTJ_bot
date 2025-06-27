@@ -4,11 +4,12 @@ from langchain.vectorstores import FAISS
 from embedding import GoogleGenAIEmbeddings
 import google.generativeai as genai
 import os
+
 from fastapi.middleware.cors import CORSMiddleware
-
-
+from dotenv import load_dotenv
 
 app = FastAPI()
+load_dotenv()
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,7 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-GOOGLE_API_KEY = "AIzaSyCv4swOT3V7X7gPM6vp5372ee-DRLvPGbU"
+GOOGLE_API_KEY=config("GOOGLE_API_KEY")
+
 INDEX_PATH = "faiss_index_store"
 
 # Setup embedding and load index
